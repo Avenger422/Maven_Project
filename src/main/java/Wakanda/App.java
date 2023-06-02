@@ -1,7 +1,7 @@
 package Wakanda;
 
 /**
- * Hello world!
+ * Hello world!  Stash kosam
  *
  */
 public class App 
