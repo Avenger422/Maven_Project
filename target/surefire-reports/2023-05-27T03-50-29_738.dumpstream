@@ -1,5 +1,0 @@
-# Created at 2023-05-27T03:50:30.139
-Boot Manifest-JAR contains absolute paths in classpath 'D:\IT\Maven\Vibranium\target\test-classes'
-Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
-'other' has different root
-
