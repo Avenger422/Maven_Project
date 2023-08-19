@@ -1,29 +1,31 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3.9.0'
-            args '-v /root/.m2:/root/.m2'
-        }
+    agent any
     }
     stages {
+        stage('Get-Code') {
+            steps {
+                // Use the 'git' tool and specify credentials
+                    def scmVars = checkout([
+                        $class: 'GitSCM',
+                        branches: [[name: '*/main']], // Specify the branch you want to checkout
+                        userRemoteConfigs: [[
+                            url: 'https://github.com/Avenger422/Jenkins_Repo.git',
+                            credentialsId: 'b8eb44ea-4b3a-45fb-8787-42a80a787652' // Specify your credentials ID here
+                        ]]
+                    ])
+                }
+            }
+            }
         stage('Build') {
             steps {
-                sh 'mvn -B -DskipTests clean package'
-            }
-        }
-        stage('Test') {
-            steps {
-                sh 'mvn test'
-            }
-            post {
-                always {
-                    junit 'target/surefire-reports/*.xml'
-                }
+                sh 'mvn clean compile'
             }
         }
         stage('Deliver') {
             steps {
-                sh './jenkins/scripts/deliver.sh'
+                sshagent(credentials: ['6e5d9cd7-af24-4897-b57b-6151b9cc0e28']) {
+                    sh 'scp -o StrictHostKeyChecking=no target/*.war testuser@4.246.173.219:/home/testuser/apache-tomcat-9.0.78/webapps'
+                }
             }
         }
     }
