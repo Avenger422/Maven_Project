@@ -4,9 +4,12 @@ pipeline {
     stages {
         stage('Get-Code') {
             steps {
-                  branch: 'main',
-                   url: 'https://github.com/Avenger422/Maven_Project.git',
-                  credentialsId: 'b8eb44ea-4b3a-45fb-8787-42a80a787652' // Specify your credentials ID here
+                checkout([
+            $class: 'GitSCM',
+            branches: [[name: 'main']], // Specify the branch you want to checkout
+            userRemoteConfigs: [[url: 'https://github.com/Avenger422/Maven_Project.git']],
+            credentialsId: 'b8eb44ea-4b3a-45fb-8787-42a80a787652' // Specify your credentials ID here
+        ])
                 }     
             }
             
