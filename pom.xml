@@ -42,18 +42,18 @@
                         <goals>
                             <goal>enforce</goal>
                         </goals>
-                        <configuration>
-                            <rules>
-                                <!-- Require Maven version 3.9.4 -->
-                                <requireMavenVersion>
-                                    <version>[3.9.4,)</version>
-                                </requireMavenVersion>
-                                <!-- Require Java version 11 -->
-                                <requireJavaVersion>
-                                    <version>11</version>
-                                </requireJavaVersion>
-                            </rules>
-                        </configuration>
+                       <configuration>
+                           <rules>
+                               <!-- Require Maven version 3.9.4 -->
+                               <requireMavenVersion>
+                                   <version>[3.9.4,)</version>
+                               </requireMavenVersion>
+                               <!-- Require Java version 11 -->
+                               <requireJavaVersion>
+                                   <version>[11,)</version>
+                               </requireJavaVersion>
+                           </rules>
+                       </configuration>
                     </execution>
                 </executions>
             </plugin>
