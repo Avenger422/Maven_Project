@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Hotel Reservation</title>
+    </h:head>
+    <h:body>
+        <div style="background-color: skyblue; height: 100%; padding-bottom: 30px">
+            <img src="Resources/images/acquamarina-hotel-vector-logo.png" alt="" height="200px" width="200px"/>
+            <span style="color: white; font-size: 100px; margin-left: 40px">Hotel Reservation System</span>
+        </div>
+        <div style=" height: 100%; padding-top: 0px;">
+                    <h:form style="background-color: black; height: 200px; padding-top: 30px;">
+                        <div style="padding-left: 15px"><h:commandLink value="[View Bookings]" action="BookingDetails.xhtml?faces-redirect=true"/></div>
+                        <div align="center" style="padding-bottom: 30px;" >
+                            <p:outputLabel for="numOfGuests" value="Number of guests:" style="color: white; padding-left: 20px" />
+                            <p:inputText id="numOfGuests" value="#{searchBean.numOfGuests}" style="padding-left: 10px"/>
+                            <p:outputLabel for="popup" value="Check-in Date:" style="color: white; padding-left: 20px" />
+                            <p:calendar id="popup" value="#{searchBean.startDate}" style="padding-left: 10px"/>
+                            <p:outputLabel for="popup1" value="Check-out Date:" style="color: white; padding-left: 20px" />
+                            <p:calendar id="popup1" value="#{searchBean.endDate}" style="padding-left: 10px"/>
+                            <br/><br/>
+                            <div style="padding-top: 40px">
+                                <p:commandButton value="Search" action="#{searchBean.getRooms()}" update="output, output1" ajax="false"/>
+                            </div>
+                        </div>
+                        <div style="background-color: ghostwhite; height: 400px;">
+                            <p:scrollPanel mode="native" style="width: 100%;height:100%">
+                                <p:panelGrid id="output" rendered="#{searchBean.availableRoom.size() != 0 }">
+                                    <ul>
+                                        <ui:repeat value="#{searchBean.availableRoom}" var="room">
+                                            <p:panelGrid columns="2" style="padding-bottom: 10px">
+
+                                                <f:facet name="header">
+                                                    <p:graphicImage url="Resources/images/deluxeroom.jpg" rendered="#{room.capacity == 2}" height="200px" width="200px"/>
+                                                    <p:graphicImage url="Resources/images/executiveroom.jpg" rendered="#{room.capacity == 4}" height="200px" width="200px"/>
+                                                    <p:graphicImage url="Resources/images/studioroom.jpg" rendered="#{room.capacity == 1}" height="200px" width="200px"/>
+                                                </f:facet>
+
+                                                <h:outputText value="Room Number:" />
+                                                <h:outputText value="#{room.roomNumber}" />
+
+                                                <h:outputText value="Rate:" />
+                                                <h:outputText value="#{room.rate}" />
+                                                <h:outputText value="Capacity:" />
+                                                <h:outputText value="#{room.capacity}" />
+
+                                            </p:panelGrid> 
+                                        </ui:repeat>
+                                    </ul>
+                                </p:panelGrid>
+                                <p:panelGrid id="output1" rendered="#{searchBean.availableRoom.size() == 0 }">
+                                    <h:outputText value="Sorry.No rooms on same floor.Try multiple floors?" /><br/>
+                                    <p:commandButton style="padding-right: 5px;" value="Yes" action="#{searchBean.getRoomsInDiffFloors()}" update="output" ajax="false"/><p:commandButton value="no" action="Home.xhtml?faces-redirect=true"/>
+                                </p:panelGrid>
+                            </p:scrollPanel>
+                        </div>
+                        <div align="center" style="padding-bottom: 30px; padding-top: 20px; background-color: black;" >
+                            <p:outputLabel for="Name" value="Name of guest:" style="color: white; padding-left: 20px" />
+                            <p:inputText id="Name" value="#{reservationBean.guestName}" style="padding-left: 10px"/>
+                            <p:outputLabel for="guestId" value="Id Number:" style="color: white; padding-left: 20px" />
+                            <p:inputText id="guestId" value="#{reservationBean.guestId}" style="padding-left: 10px"/>
+                            <br/><br/>
+                            <div style="padding-top: 20px">
+                                <p:commandButton value="Book" action="#{reservationBean.makeBooking(searchBean.availableRoom, searchBean.startDate, searchBean.endDate)}" onclick="alert('Booking Successful!')"/>
+                            </div>
+                        </div>
+
+                    </h:form>
+        </div>
+    </h:body>
+</html>
+
