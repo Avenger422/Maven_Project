@@ -20,8 +20,8 @@ pipeline {
         }
         stage('Deliver') {
             steps {
-                sshagent(credentials: ['15eb83c1-2e13-4ba8-b8dd-a4816dc5b4c3']) {
-                    sh 'scp -o StrictHostKeyChecking=no target/HotelReservation-1.0-SNAPSHOT.war linuxuser@172.174.43.139:/home/linuxuser/apache-tomcat-9.0.78/webapps'
+                sshagent(credentials: ['5ef95c33-9d5f-4c4a-a421-de8ec24998b6']) {
+                    sh 'scp -o StrictHostKeyChecking=no target/HotelReservation-1.0-SNAPSHOT.war tomcatuser@172.174.43.139:/home/linuxuser/apache-tomcat-9.0.78/webapps'
                 }
             }
         }
