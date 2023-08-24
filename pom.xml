@@ -7,7 +7,6 @@
     <packaging>war</packaging>
     <name>HotelReservation</name>
     
-    <dependencies>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
