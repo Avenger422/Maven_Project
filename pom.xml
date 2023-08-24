@@ -30,7 +30,6 @@
   </distributionManagement>
 
   <build>
-     <finalName>Maven_Project</finalName>
     <plugins>
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
